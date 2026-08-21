@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets - never commit your discord token
+.env
+
+# Database file (generated locally, not source code)
+*.db
+*.sqlite3
+
+# Editor
+.vscode/

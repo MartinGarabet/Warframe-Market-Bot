@@ -1,0 +1,4 @@
+requests==2.32.3       # for talking to the warframe market API
+# discord.py==2.4.0     # coming later (Discord bot)
+# python-dotenv==1.0.1  # coming later (loading secrets safely)
+pytest==8.3.2           # for running tests
