@@ -1,5 +1,12 @@
+"""
+Entry point for the Warframe Market Discord bot.
+"""
+
+from bot.discord_bot import run
+
+
 def main():
-    print("Warframe Market Bot - det funker!")
+    run()
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
-requests==2.32.3       # for talking to the warframe market API
-# discord.py==2.4.0     # coming later (Discord bot)
-# python-dotenv==1.0.1  # coming later (loading secrets safely)
+requests==2.32.3        # for talking to the warframe market API
+discord.py==2.4.0       # Discord bot
+audioop-lts>=0.2        # discord.py needs this on Python 3.13+
+python-dotenv==1.0.1    # loading secrets safely
 pytest==8.3.2           # for running tests
