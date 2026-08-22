@@ -1,6 +1,6 @@
 # Warframe Market Price Tracker Bot
 
-A Discord bot that tracks item prices on [Warframe Market](https://warframe.market)
+A Discord bot that tracks item prices on Warframe Market
 and notifies users when an item they're watching drops to (or below) their target price.
 
 ## Why I built this
