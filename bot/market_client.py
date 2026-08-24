@@ -29,16 +29,16 @@ def get_sell_orders(item_slug: str) -> list[dict]:
 
 def get_lowest_active_price(item_slug: str) -> int | None:
     """
-    Return the lowest sell price currently offered by an online or
-    in game seller for the given item.
+    Return the lowest sell price currently offered by a seller who is
+    actively in-game right now for the given item.
 
-    Returns None if there are no active sellers right now.
+    Returns None if there are no in-game sellers right now.
     """
     sell_orders = get_sell_orders(item_slug)
 
     active_orders = [
         order for order in sell_orders
-        if order["user"]["status"] in ("online", "ingame")
+        if order["user"]["status"] == "ingame"
     ]
 
     if not active_orders:

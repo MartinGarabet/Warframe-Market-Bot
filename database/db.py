@@ -22,6 +22,7 @@ def init_db() -> None:
         CREATE TABLE IF NOT EXISTS alerts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id TEXT NOT NULL,
+            channel_id TEXT NOT NULL,
             item_slug TEXT NOT NULL,
             target_price INTEGER NOT NULL
         )
@@ -31,17 +32,17 @@ def init_db() -> None:
     connection.close()
 
 
-def add_alert(user_id: str, item_slug: str, target_price: int) -> None:
+def add_alert(user_id: str, channel_id: str, item_slug: str, target_price: int) -> None:
     """
-    Save a new alert: notify user_id when item_slug drops to
-    target_price platinum or below.
+    Save a new alert: notify user_id in channel_id when item_slug drops
+    to target_price platinum or below.
     """
     connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor()
 
     cursor.execute(
-        "INSERT INTO alerts (user_id, item_slug, target_price) VALUES (?, ?, ?)",
-        (user_id, item_slug, target_price)
+        "INSERT INTO alerts (user_id, channel_id, item_slug, target_price) VALUES (?, ?, ?, ?)",
+        (user_id, channel_id, item_slug, target_price)
     )
 
     connection.commit()
@@ -51,13 +52,13 @@ def add_alert(user_id: str, item_slug: str, target_price: int) -> None:
 def get_all_alerts() -> list[dict]:
     """
     Return every alert currently stored, as a list of dicts,
-    example [{"id": 1, "user_id": "123", "item_slug": "mesa_prime_set", "target_price": 60}, ...]
+    example [{"id": 1, "user_id": "123", "channel_id": "456", "item_slug": "mesa_prime_set", "target_price": 60}, ...]
     """
     connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
-    cursor.execute("SELECT id, user_id, item_slug, target_price FROM alerts")
+    cursor.execute("SELECT id, user_id, channel_id, item_slug, target_price FROM alerts")
     rows = cursor.fetchall()
 
     connection.close()
