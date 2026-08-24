@@ -1,6 +1,6 @@
 # Warframe Market Price Tracker Bot
 
-A Discord bot that tracks item prices on Warframe Market
+A Discord bot that tracks item prices on [Warframe Market](https://warframe.market)
 and notifies users when an item they're watching drops to (or below) their target price.
 
 ## Why I built this
@@ -8,16 +8,37 @@ and notifies users when an item they're watching drops to (or below) their targe
 I play Warframe regularly and wanted a way to know when Prime parts or other
 tradeable items hit a good price, without manually refreshing the market site.
 This project also let me practice working with a real public API, persistent
-storage, and building something people can actually use daily.
+storage, and building something people can actually use day-to-day.
 
-## Status
+# Warframe Market Price Tracker Bot
 
-Work still in progress. 
+A Discord bot that tracks item prices on [Warframe Market](https://warframe.market)
+and notifies users, in the channel they used the command in, when an item
+they're watching drops to (or below) their target price — based only on
+sellers who are actively in-game right now.
+
+## Why I built this
+
+I play Warframe regularly and wanted a way to know when Prime parts or other
+tradeable items hit a good price, without manually refreshing the market site.
+This project also let me practice working with a real public API, persistent
+storage, background scheduling, and building something people can actually
+use day to day, inspired by hearing about a similar market tracking project
+built for World of Warcraft.
+
+## Features
+
+- `/track <item> <price>` — get notified when an item drops to your target price
+- `/untrack <alert_id>` — stop tracking an alert
+- `/myalerts` — list your active alerts
+- `/price <item>` — check the current lowest active price on demand
+- A background job checks all saved alerts every few minutes automatically
+- Only considers sellers who are currently **in-game**, for realistic, up-to-date prices
 
 ## Tech stack
 
 - Python
-- [Warframe Market API](https://warframe.market/api_docs) (public, no key needed)
+- [Warframe Market API v2](https://docs.warframe.market) (public, no key needed)
 - discord.py
 - SQLite
 
@@ -32,10 +53,13 @@ source venv/bin/activate   # macOS/Linux
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the placeholder entry point
+# 3. Create a .env file (see .env.example) with your own Discord bot token
+DISCORD_TOKEN=your_token_here
+
+# 4. Run the bot
 python main.py
 
-# 4. Run tests
+# 5. Run tests
 pytest
 ```
 
@@ -44,13 +68,22 @@ pytest
 ```
 warframe-market-bot/
 ├── bot/
-│   ├── config.py         # loads settings/secrets
-│   └── market_client.py  # talks to the Warframe Market API
+│   ├── config.py          # loads settings/secrets from .env
+│   ├── market_client.py   # talks to the Warframe Market API
+│   └── discord_bot.py     # Discord slash commands + background price checker
 ├── database/
-│   └── db.py             # stores user price alerts
+│   └── db.py               # stores user price alerts (SQLite)
 ├── tests/
-│   └── test_placeholder.py
-├── main.py                # entry point
+│   ├── test_market_client.py
+│   └── test_db.py
+├── main.py                 # entry point
 ├── requirements.txt
+├── .env.example
 └── README.md
 ```
+
+## What I'd add with more time
+
+- A `/list_items` autocomplete so users don't need to know exact item slugs
+- Rate-limit handling for the Warframe Market API
+- Deployment to a free always-on host instead of running locally
