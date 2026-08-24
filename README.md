@@ -3,6 +3,8 @@
 A Discord bot that tracks item prices on [Warframe Market](https://warframe.market)
 and notifies users when an item they're watching drops to (or below) their target price.
 
+<img width="607" height="86" alt="warframee" src="https://github.com/user-attachments/assets/5da6a192-e631-4c25-81e4-8852cb5d4894" />
+
 ## Why I built this
 
 I play Warframe regularly and wanted a way to know when Prime parts or other
